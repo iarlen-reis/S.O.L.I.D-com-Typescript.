@@ -1,0 +1,1 @@
+# Aprendendo de S.O.L.I.D com Typescript
