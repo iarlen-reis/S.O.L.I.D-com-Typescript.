@@ -1,4 +1,4 @@
-import { ShoppingCart } from "./classes/interfaceSegregation";
+import { ShoppingCart } from "./classes/liskovSubstitution";
 import { Order } from "./classes/order";
 import { Messaging } from "./services/message";
 import { Persistency } from "./services/persistency";
@@ -8,10 +8,6 @@ import {
   TenPercentDiscount,
   NoDiscount,
 } from "./classes/discount";
-import {
-  EnterpriseCustomer,
-  IndivdualCustomer,
-} from "./classes/interfaces/customer";
 
 //discounts
 const fiftyPercentDiscount = new FiftyPercentDiscount();
@@ -24,24 +20,14 @@ const shoppingCart = new ShoppingCart(noDiscount);
 //dependences order:
 const persistency = new Persistency();
 const message = new Messaging();
-const individualCustomer = new IndivdualCustomer(
-  "Iarlen",
-  "Reis",
-  "214.865.254-07"
-);
 
-const entepriseCustomer = new EnterpriseCustomer(
-  "Aladin, LTS",
-  "14.711.273/0001-59"
-);
+// order and injected of dependences
+const order = new Order(shoppingCart, message, persistency);
 
 // add itens in cart:
 shoppingCart.addItem(new Product("Caderno", 20.65));
 shoppingCart.addItem(new Product("Camiseta", 45.2));
 shoppingCart.addItem(new Product("Mochila", 101.0));
-
-// order and injected of dependences:
-const order = new Order(shoppingCart, message, persistency, entepriseCustomer);
 
 // verify order status, is open now:
 console.log(order.orderStatus);

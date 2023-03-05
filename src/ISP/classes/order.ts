@@ -1,8 +1,7 @@
 import { OrderStatus } from "./interfaces/oderStatus";
-import { ShoppingCart } from "./interfaceSegregation";
+import { ShoppingCart } from "./liskovSubstitution";
 import { Messaging } from "../services/message";
 import { Persistency } from "../services/persistency";
-import { CustomerOrder } from "./interfaces/customerProtocol";
 
 export class Order {
   private _orderStatus: OrderStatus = "open";
@@ -10,8 +9,7 @@ export class Order {
   constructor(
     private readonly cart: ShoppingCart,
     private readonly messaging: Messaging,
-    private readonly persistency: Persistency,
-    private readonly cutomerOrder: CustomerOrder
+    private readonly persistency: Persistency
   ) {}
 
   get orderStatus(): OrderStatus {
@@ -34,8 +32,5 @@ export class Order {
 
     this.persistency.saveOrder();
     this.cart.clear();
-
-    console.log("O cliente é: ", this.cutomerOrder.getName());
-    console.log("CPF/CNPJ: ", this.cutomerOrder.getIDN());
   }
 }
